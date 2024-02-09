@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.Nuevo_Registro">
+
+
+    <TextView
+        android:id="@+id/formulario_registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="@string/formulario_de_registro"
+        style="@style/TextViewStyle"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.542" />
+
+    <LinearLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/bottonsheet_background"
+        android:orientation="vertical"
+        android:padding="45dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/nombre"
+             />
+
+        <EditText
+            android:id="@+id/entrada_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="@string/introduce_un_nombre"
+            android:inputType="text"
+           />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/correo_electronico"
+          />
+
+        <EditText
+            android:id="@+id/entrada_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="@string/introduce_un_correo"
+            android:inputType="textEmailAddress"
+          />
+
+        <TextView
+            android:id="@+id/telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/telefono"
+           />
+
+        <EditText
+            android:id="@+id/entrada_telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="@string/introduce_su_telefono"
+            android:inputType="phone"
+          />
+
+        <TextView
+            android:id="@+id/contraseña"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/contrasenia"
+        />
+
+        <EditText
+            android:id="@+id/entrada_contraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:ems="10"
+            android:hint="@string/introduce_contrase_a"
+            android:inputType="textPassword"
+          />
+
+
+        <EditText
+            android:id="@+id/confirmarContraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/confirma_contrase_a"
+            android:inputType="textPassword"
+          />
+
+
+        <Button
+            android:id="@+id/registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:text="@string/registrar"
+
+           />
+
+        <TextView
+            android:id="@+id/mensajeError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/puntos_suspensivos"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+           />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
