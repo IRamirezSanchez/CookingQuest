@@ -4,5 +4,12 @@
     <dimen name="line_spacing">5sp</dimen>
     <dimen name="margin_regular">10dp</dimen>
     <dimen name="text_size">16sp</dimen>
+    <dimen name="text_size0">12sp</dimen>
+    <dimen name="text_size2">18sp</dimen>
+    <dimen name="text_size3">20sp</dimen>
+    <dimen name="text_size4">22sp</dimen>
+    <dimen name="text_size5">24sp</dimen>
+    <dimen name="text_size6">26sp</dimen>
+    <dimen name="text_size7">28sp</dimen>
 
 </resources>

@@ -1,10 +1,12 @@
 package com.example.cookingquest;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,6 +49,7 @@ public class GameActivityAdivina extends AppCompatActivity {
     private ArrayList<Integer> imagenesUtilizadas = new ArrayList<>();
     List<Receta> recetasList= new ArrayList<>();
     Receta recetaSeleccionada=null;
+    Dialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,40 +228,64 @@ public class GameActivityAdivina extends AppCompatActivity {
     }
 
     private void verificarRespuesta(int respuestaSeleccionada, int respuestaCorrecta) {
-       //Creamos un builder de AlertDialog para ir mostrando lo que va surgiendo en el juego
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Resultado");
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_cocina, null);
+        builder.setView(dialogView);
+
+        TextView titleTextView = dialogView.findViewById(R.id.titleTextView);
+        TextView messageTextView = dialogView.findViewById(R.id.messageTextView);
+        Button positiveButton = dialogView.findViewById(R.id.positiveButton);
+        Button negativeButton = dialogView.findViewById(R.id.negativeButton);
 
         if (respuestaSeleccionada == respuestaCorrecta) {
             cargarDatos(5L);
-            builder.setMessage("¡Respuesta Correcta!" );
-            builder.setPositiveButton("CONTINUAR", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+            titleTextView.setText("¡Respuesta Correcta!");
+            messageTextView.setText("Has ganado 5 puntos");
+
+            positiveButton.setText("CONTINUAR");
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     if (imagenesUtilizadas.size() == 17) {
                         imagenesUtilizadas.clear();
                         crearJuego();
                     } else {
                         crearJuego();
                     }
-                   // finish();
-                   // Intent volver = new Intent(GameActivityAdivina.this, GameActivityAdivina.class);
-                   // startActivity(volver);
+                    // Cerrar el diálogo si es necesario
+                    if (alertDialog != null && alertDialog.isShowing()) {
+                        alertDialog.dismiss();
+                    }
                 }
             });
         } else {
-            builder.setMessage("Respuesta Incorrecta, intentelo de nuevo.");
-            builder.setPositiveButton("REINTENTAR", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+            titleTextView.setText("Respuesta Incorrecta");
+            messageTextView.setText("¡Inténtalo de nuevo!");
 
+            positiveButton.setText("REINTENTAR");
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Hacer algo si es necesario
+                    // Cerrar el diálogo si es necesario
+                    if (alertDialog != null && alertDialog.isShowing()) {
+                        alertDialog.dismiss();
+                    }
                 }
             });
         }
-        builder.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+
+        negativeButton.setText("SALIR");
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });
-        builder.show();
+
+        alertDialog = builder.create(); // Asignar el AlertDialog creado a la variable miembro alertDialog
+        alertDialog.show();
     }
 
     private void mostrarError(String mensaje) {

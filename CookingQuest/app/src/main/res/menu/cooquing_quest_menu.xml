@@ -16,6 +16,7 @@
     <item
         android:id="@+id/menu_juegos"
         android:title="Juegos"
+        android:icon="@drawable/icons_audio"
         app:showAsAction="never">
         <menu>
             <item

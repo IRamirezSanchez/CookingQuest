@@ -15,6 +15,11 @@
 
     <color name="Tercer_color">#004225</color>
     <color name="Tercer_color_claro">#47815C</color>
+
+    <color name="colorAccent">#FFB000</color>
+    <color name="colorPrimary">#42BFB4</color>
+    <color name="colorPrimaryDark">#004225</color>
+
     <!--
         <color name="Principal_color">#FCF5ED</color>
         <color name="Secundario_color">#F4BF96</color>

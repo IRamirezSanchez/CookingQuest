@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
@@ -70,6 +71,7 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
     private boolean isTranslatedToSpanish = false;
     private boolean isSpainFlag = true;
     DownloadConditions conditions;
+    private ImageView imagenSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
         ingredientesTextView= findViewById(R.id.RSTextIngredientes);
         estrellaON = findViewById(R.id.estrella_ON);
         estrellaOFF = findViewById(R.id.estrella_OFF);
+        imagenSplash = findViewById(R.id.splashImageView);
 
         storage = FirebaseStorage.getInstance();
         myStorage = storage.getReference();
@@ -91,8 +94,10 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
         myAuth = FirebaseAuth.getInstance();
         user = myAuth.getCurrentUser();
         conditions = new DownloadConditions.Builder().requireWifi().build();
-        crearReceta();
 
+
+        crearReceta();
+        cargaSplash();
         setButtonClickListener(playPauseButton1, 1);
         setButtonClickListener(playPauseButton2, 2);
         setButtonClickListener(playPauseButton3, 3);
@@ -103,8 +108,19 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
         // Inicializar el traductor y el reproductor
         inicializarTraductorYreproducir();
 
-    }
 
+
+
+    }
+    private void cargaSplash(){
+        long timestamp = System.currentTimeMillis();
+        String imageUrl = "https://source.unsplash.com/800x600/?cooking&t="+timestamp;
+        Glide.with(this)
+                .load(imageUrl)
+                .override(800,600)
+                .centerCrop()
+                .into(imagenSplash);
+    }
     //INSTANCIA LOS VALORES DE LOS ATRIBUTOS QUE CONTIENEN LAS RECETAS DEPENDIENDO DE LA RECETA SELECCIONADA
     private void crearReceta() {
 
@@ -387,43 +403,43 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
     }
 
     private void updatePlayPauseButtonIcon(int buttonNumber) {
-        int iconResourceId = isPlaying ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play;
-        int iconResourceId2 = android.R.drawable.ic_media_play;
+        int iconResourceId = isPlaying ? R.drawable.icons_no_audio : R.drawable.icons_audio;
+        int iconResourceId2 = R.drawable.icons_audio;
         switch (buttonNumber) {
             case 1:
-                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId, 0, 0);
-                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
+                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(iconResourceId, 0, 0, 0);
+                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2,0, 0, 0);
+                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
                 break;
             case 2:
-                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId, 0, 0);
-                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
+                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(iconResourceId, 0, 0, 0);
+                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
                 break;
             case 3:
-                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId, 0, 0);
-                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
+                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(iconResourceId, 0, 0, 0);
+                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
                 break;
             case 4:
-                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId, 0, 0);
-                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
+                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(iconResourceId, 0, 0, 0);
+                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
                 break;
             case 5:
-                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId2, 0, 0);
-                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(0, iconResourceId, 0, 0);
+                playPauseButton1.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton2.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton3.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton4.setCompoundDrawablesWithIntrinsicBounds(iconResourceId2, 0, 0, 0);
+                playPauseButton5.setCompoundDrawablesWithIntrinsicBounds(iconResourceId, 0, 0, 0);
                 break;
         }
     }
@@ -589,9 +605,9 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isSpainFlag) {
-                    translateButton.setBackgroundResource(R.drawable.icons_england);
+                    translateButton.setBackgroundResource(R.drawable.inglaterra_bandera_3d);
                 } else {
-                    translateButton.setBackgroundResource(R.drawable.icons_spain);
+                    translateButton.setBackgroundResource(R.drawable.spain_bandera_3d);
                 }
                 isSpainFlag = !isSpainFlag;
                 translateText();
