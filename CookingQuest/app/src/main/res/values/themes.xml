@@ -34,9 +34,9 @@
     </style>
 
     <style name="ButtonLoginUserStyle">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">20dp</item>
-        <item name="android:background">@drawable/rounded2</item>
+        <item name="android:background">@drawable/rounded_login</item>
     </style>
 
 

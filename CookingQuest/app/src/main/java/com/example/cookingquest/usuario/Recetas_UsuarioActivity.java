@@ -3,9 +3,11 @@ package com.example.cookingquest.usuario;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.cookingquest.GameActivityAdivina;
 import com.example.cookingquest.InicioActivity;
 import com.example.cookingquest.R;
@@ -38,6 +44,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,113 +66,21 @@ public class Recetas_UsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recetas_usuario);
         myAuth =  FirebaseAuth.getInstance();
-        user= myAuth.getCurrentUser();
+        user = myAuth.getCurrentUser();
 
-        paisOrigen = getIntent().getStringExtra(InicioActivity.pais);
-        Pais nombrePais= Pais.valueOf(paisOrigen);
+        linearLayout = findViewById(R.id.linearLayout);
+        storage = FirebaseStorage.getInstance();
+        myFireStore = FirebaseFirestore.getInstance();
 
-        //textoPais = findViewById(R.id.RP_PAIS);
-        linearLayout = findViewById(R.id.linearLayoutRecetas);
-
+        // Obtener las recetas favoritas y agregar las vistas de recetas correspondientes
         if(user != null) {
             obtenerRecetasFavoritas();
         }
-        // =========================FIRESTORE ============================
-        storage = FirebaseStorage.getInstance();
-        myStorage = storage.getReference();
-
-        myFireStore = FirebaseFirestore.getInstance();
-        DocumentReference docRef = myFireStore.collection("recetario").document(nombrePais.toString().toLowerCase());
-
-        docRef.collection("recetas").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Acceder a los datos de cada documento de receta
-                                String nombreReceta = document.getString("nombre");
-                                String categoriaReceta = document.getString("categoria");
-                                String racionesReceta = document.getString("raciones");
-                                String tiempoReceta = document.getString("tiempo");
-
-
-                                textoPais.setText(String.valueOf(nombrePais));
-                                //Creamos item de cada receta automatico de todas las recetas por cada pais asi cuando queramos incluir mas se autorellenan
-                                View recetaView = getLayoutInflater().inflate(R.layout.layout_receta, null);
-
-                                //VAMOS INCLUYENDO CADA BLOQUE DE INFORMACION DEL layout_receta en la actividad que estamos
-
-                                //INTRODUCIR CON STORAGE LA IMAGEN==================================================
-                                ImageButton botonReceta = recetaView.findViewById(R.id.RP_BOTON_1);
-
-                                String rutaImagen = "images_recetas/" + nombrePais.toString().toLowerCase() + "/" + nombreReceta + ".jpg";
-                                myStorage.child(rutaImagen).getDownloadUrl()
-                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                Glide.with(Recetas_UsuarioActivity.this)
-                                                        .load(uri)
-                                                        .into(botonReceta);
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception exception) {
-                                                // Manejar errores al obtener la URL de la imagen
-                                                Log.e(TAG, "Error al obtener la URL de la imagen:", exception);
-                                            }
-                                        });
-
-
-
-                                //Controlamos con el inear que pueda pulsar en cualquier parte.
-                                LinearLayout linearReceta =recetaView.findViewById(R.id.linearReceta);
-                                //Nos creamos el objeto view.OnclickListener para modificarlo despues, dependiendo cual pulse.
-                                View.OnClickListener onClickListener = new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        // Cuando se hace clic en la receta, creamos un Intent y lo enviamos a la nueva actividad
-                                        Intent intent = new Intent(Recetas_UsuarioActivity.this, RecetaPrincipalActivity.class);
-                                        // detalles de la receta como extras en el Intent
-                                        String nombreYPaisReceta= nombreReceta+ "-"+nombrePais;
-                                        intent.putExtra("recetaNombre", nombreYPaisReceta);
-                                        startActivity(intent);
-                                    }
-                                };
-                                //de esta manera ejecuto el intent con los componentes que deseo.
-                                // Pulsar cualquier zona de la receta para acceder a ella.
-                                linearReceta.setOnClickListener(onClickListener);
-                                botonReceta.setOnClickListener(onClickListener);
-
-                                TextView tituloReceta = recetaView.findViewById(R.id.RP_TEXT_1);
-                                tituloReceta.setText(nombreReceta);
-
-                                TextView categoria = recetaView.findViewById(R.id.categoria_desa1);
-                                categoria.setText(categoriaReceta);
-
-                                TextView tiempo = recetaView.findViewById(R.id.tiempo_desa1);
-                                tiempo.setText(tiempoReceta);
-
-                                TextView raciones = recetaView.findViewById(R.id.raciones_desa1);
-                                raciones.setText(racionesReceta);
-
-
-                                linearLayout.addView(recetaView);
-                                View espaciosView=getLayoutInflater().inflate(R.layout.espacios,null);
-                                linearLayout.addView(espaciosView);
-
-                            }
-                        } else {
-                            Log.e(TAG, "Error al obtener documentos de recetas:", task.getException());
-                        }
-                    }
-                });
 
     }
+
     private void obtenerRecetasFavoritas() {
         DocumentReference userRef = myFireStore.collection("usuarios").document(user.getUid());
-
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -181,23 +98,72 @@ public class Recetas_UsuarioActivity extends AppCompatActivity {
 
     private void agregarVistaReceta(String recetaId, String pais) {
         DocumentReference recetaRef = myFireStore.collection("recetario").document(pais).collection("recetas").document(recetaId);
-
         recetaRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()) {
-                    // Aquí construyes la vista de la receta con la información del documento
+                    // Construir la vista de la receta con la información del documento
                     View recetaView = getLayoutInflater().inflate(R.layout.layout_receta, linearLayout, false);
                     TextView nombreRecetaTextView = recetaView.findViewById(R.id.RP_TEXT_1);
                     nombreRecetaTextView.setText(documentSnapshot.getString("nombre"));
-                    // Puedes rellenar el resto de los campos de la vista de la misma manera
+                    TextView categoria = recetaView.findViewById(R.id.categoria_desa1);
+                    categoria.setText(documentSnapshot.getString("categoria"));
+                    TextView tiempo = recetaView.findViewById(R.id.tiempo_desa1);
+                    tiempo.setText(documentSnapshot.getString("tiempo"));
+                    TextView raciones = recetaView.findViewById(R.id.raciones_desa1);
+                    raciones.setText(documentSnapshot.getString("raciones"));
 
+                    String nombreReceta = documentSnapshot.getString("nombre");
+                    System.out.println(nombreReceta);
                     // Cargar la imagen usando Glide
-                    String rutaImagen = "images_recetas/" + pais + "/" + recetaId + ".jpg";
                     ImageButton botonReceta = recetaView.findViewById(R.id.RP_BOTON_1);
-                    Glide.with(Recetas_UsuarioActivity.this)
-                            .load(rutaImagen)
-                            .into(botonReceta);
+
+                    String rutaImagen = "images_recetas/" + pais + "/" + nombreReceta + ".jpg";
+                    StorageReference storageRef = storage.getReference().child(rutaImagen);
+
+                    // Obtener la URI de la imagen para cargarla con Glide
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Cargar la imagen usando Glide
+                            ImageButton botonReceta = recetaView.findViewById(R.id.RP_BOTON_1);
+                            Glide.with(Recetas_UsuarioActivity.this)
+                                    .load(uri)
+                                    .into(botonReceta);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Manejar errores al obtener la URL de la imagen
+                            Log.e(TAG, "Error al obtener la URL de la imagen:", e);
+                        }
+                    });
+
+
+                    // Añadir el OnClickListener para abrir la actividad de detalles de la receta
+                    LinearLayout linearReceta = recetaView.findViewById(R.id.linearReceta);
+                    linearReceta.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Cuando se hace clic en la receta, creamos un Intent y lo enviamos a la nueva actividad
+                            Intent intent = new Intent(Recetas_UsuarioActivity.this, RecetaPrincipalActivity.class);
+                            // detalles de la receta como extras en el Intent
+                            String nombreYPaisReceta = documentSnapshot.getString("nombre") + "-" + pais;
+                            intent.putExtra("recetaNombre", nombreYPaisReceta);
+                            startActivity(intent);
+                        }
+                    });
+                    botonReceta.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Cuando se hace clic en la receta, creamos un Intent y lo enviamos a la nueva actividad
+                            Intent intent = new Intent(Recetas_UsuarioActivity.this, RecetaPrincipalActivity.class);
+                            // detalles de la receta como extras en el Intent
+                            String nombreYPaisReceta = documentSnapshot.getString("nombre") + "-" + pais;
+                            intent.putExtra("recetaNombre", nombreYPaisReceta);
+                            startActivity(intent);
+                        }
+                    });
 
                     // Añadir la vista al layout
                     linearLayout.addView(recetaView);
@@ -207,6 +173,7 @@ public class Recetas_UsuarioActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflar menu

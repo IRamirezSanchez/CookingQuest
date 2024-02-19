@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ public class Nuevo_Registro extends AppCompatActivity {
     private TextView  mensajeErrorC;
     private FirebaseAuth myAuth;
     private FirebaseFirestore myFireStore;
+    private Animation mBtnAnim;
 
     String uidUsuario;
     @Override
@@ -49,12 +52,14 @@ public class Nuevo_Registro extends AppCompatActivity {
         confirmar_contraseñaC = findViewById(R.id.confirmarContraseña);
         puntosC= 0L;
         mensajeErrorC = findViewById(R.id.mensajeError);
+        mBtnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.boton_anim);
 
         Button buttonRegistrar = findViewById(R.id.registrar);
 
         buttonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                buttonRegistrar.startAnimation(mBtnAnim);
                 registrarUsuario();
             }
         });
@@ -111,7 +116,7 @@ public class Nuevo_Registro extends AppCompatActivity {
 
 
         if (email.isEmpty() || password.isEmpty() || telefono.isEmpty() || passwordConfirmar.isEmpty() || nombre.isEmpty()) {
-           // Toast.makeText(Nuevo_Registro.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(Nuevo_Registro.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             mensajeErrorC.setText("Por favor, completa todos los campos");
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override

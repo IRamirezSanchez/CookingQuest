@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Tercer_color"
     tools:context=".login.Nuevo_Registro">
 
 
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:text="@string/formulario_de_registro"
-        style="@style/TextViewStyle"
+        style="@style/TextViewStyleLogin"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomSheet"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/nombre"
-             />
+            android:text="@string/nombre" />
 
         <EditText
             android:id="@+id/entrada_nombre"
@@ -51,7 +51,7 @@
             android:ems="10"
             android:hint="@string/introduce_un_nombre"
             android:inputType="text"
-           />
+            />
 
         <TextView
             android:id="@+id/email"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/correo_electronico"
-          />
+            />
 
         <EditText
             android:id="@+id/entrada_email"
@@ -69,7 +69,7 @@
             android:ems="10"
             android:hint="@string/introduce_un_correo"
             android:inputType="textEmailAddress"
-          />
+            />
 
         <TextView
             android:id="@+id/telefono"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/telefono"
-           />
+            />
 
         <EditText
             android:id="@+id/entrada_telefono"
@@ -87,7 +87,7 @@
             android:ems="10"
             android:hint="@string/introduce_su_telefono"
             android:inputType="phone"
-          />
+            />
 
         <TextView
             android:id="@+id/contraseña"
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/contrasenia"
-        />
+            />
 
         <EditText
             android:id="@+id/entrada_contraseña"
@@ -105,7 +105,7 @@
             android:ems="10"
             android:hint="@string/introduce_contrase_a"
             android:inputType="textPassword"
-          />
+            />
 
 
         <EditText
@@ -116,7 +116,7 @@
             android:ems="10"
             android:hint="@string/confirma_contrase_a"
             android:inputType="textPassword"
-          />
+            />
 
 
         <Button
@@ -124,19 +124,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
+            style="@style/ButtonLoginUserStyle"
             android:text="@string/registrar"
 
-           />
+            />
 
         <TextView
             android:id="@+id/mensajeError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="@string/puntos_suspensivos"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/red"
-           />
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

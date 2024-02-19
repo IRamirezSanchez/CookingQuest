@@ -45,7 +45,7 @@
     <string name="volver">VOLVER</string>
 
 
-    <string name="CATEGORIA">Categoria</string>
+    <string name="CATEGORIA">Categoria:</string>
     <string name="rs_categoria_sp1">Postres</string>
     <string name="rs_categoria_sp2">Guisos</string>
     <string name="rs_categoria_sp3">Postres</string>
@@ -967,6 +967,7 @@
     <string name="puntuacion">Puntuacion</string>
     <string name="top_image">Imagen de Fondo Perfil</string>
     <string name="center_image">Foto de Perfil</string>
+    <string name="cooking_fast">COOKING FAST</string>
 
 
 </resources>

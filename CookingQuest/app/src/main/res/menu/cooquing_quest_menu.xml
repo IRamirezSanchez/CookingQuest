@@ -16,13 +16,12 @@
     <item
         android:id="@+id/menu_juegos"
         android:title="Juegos"
-        android:icon="@drawable/icons_audio"
         app:showAsAction="never">
         <menu>
             <item
                 android:id="@+id/P_Boton_IMG_EMPAREJA"
                 android:icon="@drawable/icono_empareja"
-                android:title="@string/emparejalos"
+                android:title="@string/cooking_fast"
                 app:showAsAction="never"
                 style="@style/ButtonViewStyle"/>
             <item

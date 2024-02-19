@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
 import com.example.cookingquest.login.PerfilUsuario;
 import com.example.cookingquest.model.Pais;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class InicioActivity extends AppCompatActivity {
 
     public static final String pais="pais";
-
+    private Animation mBtnAnim;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +32,16 @@ public class InicioActivity extends AppCompatActivity {
 
         ImageButton botonEmparejalos = findViewById(R.id.P_Boton_IMG_EMPAREJA);
         ImageButton botonAdivina = findViewById(R.id.P_Boton_IMG_ADIVINA);
-
+        mBtnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.boton_anim);
 
 
         //se utiliza para transmitir datos entre las actividades en función de los botones que se han hecho clic.
         View.OnClickListener paisBotonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                v.startAnimation(mBtnAnim);
+
                 Pais nombrePais = null;
                 String juego= null;
 
@@ -49,7 +55,7 @@ public class InicioActivity extends AppCompatActivity {
                 } else if (v == botonInglaterra) {
                     nombrePais = Pais.INGLATERRA;
                 } else if (v == botonEmparejalos) {
-                    juego = "Emparejalos";
+                    juego = "CookingFast";
                 } else if (v == botonAdivina) {
                     juego = "Adivina";
                 }
@@ -63,10 +69,18 @@ public class InicioActivity extends AppCompatActivity {
 
                 }
                 if (juego != null) {
-                    Intent intent = new Intent(InicioActivity.this, GameActivityAdivina.class);
-                    intent.putExtra("pais", juego);//utilizo la misma variable para leer la informacion
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.desvanecer, R.anim.aparecer);
+                    if(juego.equals("Adivina")){
+                        Intent intent = new Intent(InicioActivity.this, GameActivityAdivina.class);
+                        intent.putExtra("pais", juego);//utilizo la misma variable para leer la informacion
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.desvanecer, R.anim.aparecer);
+                    }else{
+                        Intent intent = new Intent(InicioActivity.this, GameActivityCookingFast.class);
+                        intent.putExtra("pais", juego);//utilizo la misma variable para leer la informacion
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.desvanecer, R.anim.aparecer);
+                    }
+
 
 
                 }

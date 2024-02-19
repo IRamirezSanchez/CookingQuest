@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cookingquest.login.PerfilUsuario;
 import com.example.cookingquest.model.Receta;
 import com.example.cookingquest.model.Repositorios_Recetas;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -84,7 +85,7 @@ public class GameActivityAdivina extends AppCompatActivity {
 
 
                 do {
-                 recetaSeleccionada = recetasList.get(new Random().nextInt(recetasList.size()));
+                    recetaSeleccionada = recetasList.get(new Random().nextInt(recetasList.size()));
                 } while (imagenesUtilizadas.contains(recetaSeleccionada.getImagen_receta()));// Selecciona aleatoriamente una de las recetas
 
                 imagenesUtilizadas.add(recetaSeleccionada.getImagen_receta());
@@ -311,9 +312,9 @@ public class GameActivityAdivina extends AppCompatActivity {
         }else{
             getSupportActionBar().hide();
         }
-         // Verifica la clase de la actividad y oculta la opción de menú según sea necesario
+        // Verifica la clase de la actividad y oculta la opción de menú según sea necesario
         if (getClass() == GameActivityAdivina.class) {
-            MenuItem itemToRemove1 = menu.findItem(R.id.menu_juegos);
+            MenuItem itemToRemove1 = menu.findItem(R.id.P_Boton_IMG_ADIVINA);
             MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);
             if (itemToRemove1 != null || itemToRemove != null) {
                 menu.removeItem(itemToRemove1.getItemId());
@@ -329,12 +330,22 @@ public class GameActivityAdivina extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-       if (id == R.id.P_Boton_IMG_INICIO) {
+        if (id == R.id.P_Boton_IMG_INICIO) {
             Intent adivinaIntent = new Intent(this, InicioActivity.class);
             startActivity(adivinaIntent);
             finish();
             return true;
-        }else {
+        }else if (id == R.id.P_Boton_Perfil_Usuario) {
+            Intent adivinaIntent = new Intent(this, PerfilUsuario.class);
+            startActivity(adivinaIntent);
+            finish();
+            return true;
+        }else if (id == R.id.P_Boton_IMG_EMPAREJA) {
+            Intent emparejaIntent = new Intent(this, GameActivityCookingFast.class);
+            startActivity(emparejaIntent);
+            finish();
+            return true;
+        }else{
             return super.onOptionsItemSelected(item);
         }
     }

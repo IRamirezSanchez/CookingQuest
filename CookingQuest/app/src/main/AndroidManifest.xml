@@ -15,17 +15,24 @@
         android:theme="@style/Base.Theme.CookingQuest"
         tools:targetApi="31">
         <activity
+            android:name=".EliminarCuenta"
+            android:exported="false" />
+        <activity
+            android:name=".GameActivityCookingFast"
+            android:exported="false"
+            android:parentActivityName=".InicioActivity" />
+        <activity
             android:name=".usuario.Recetas_UsuarioActivity"
             android:exported="false"
-            android:parentActivityName=".login.PerfilUsuario"/>
+            android:parentActivityName=".login.PerfilUsuario" />
         <activity
             android:name=".usuario.Puntuacion_GlobalActivity"
             android:exported="false"
-            android:parentActivityName=".login.PerfilUsuario"/>
+            android:parentActivityName=".login.PerfilUsuario" />
         <activity
             android:name=".usuario.Info_UsuarioActivity"
             android:exported="false"
-            android:parentActivityName=".login.PerfilUsuario"/> <!-- Herencia entre clases definir quien es su padre con parentActivityName -->
+            android:parentActivityName=".login.PerfilUsuario" /> <!-- Herencia entre clases definir quien es su padre con parentActivityName -->
         <activity
             android:name=".login.Login"
             android:exported="false"
@@ -38,14 +45,15 @@
         <activity
             android:name=".login.PerfilUsuario"
             android:exported="false"
-            android:parentActivityName=".InicioActivity"/>
+            android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".GameActivityAdivina"
             android:exported="false"
             android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".RecetaPrincipalActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <!--
 Herencia entre clases no la puedo poner en el tercero, todavia,
         ya que tengo que pasar la info

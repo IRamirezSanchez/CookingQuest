@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.cookingquest.login.PerfilUsuario;
 import com.example.cookingquest.model.Pais;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -169,7 +170,7 @@ public class RecetasPaisActivity extends AppCompatActivity {
         int id = item.getItemId();
         //FALTARIA el 2 juego y lanzariamos la actividad
         if (id == R.id.P_Boton_IMG_EMPAREJA) {
-            Intent emparejaIntent = new Intent(this, GameActivityAdivina.class);
+            Intent emparejaIntent = new Intent(this, GameActivityCookingFast.class);
             startActivity(emparejaIntent);
             finish();
             return true;
@@ -183,9 +184,15 @@ public class RecetasPaisActivity extends AppCompatActivity {
             startActivity(adivinaIntent);
 
             return true;
+        }else if (id == R.id.P_Boton_Perfil_Usuario) {
+            Intent adivinaIntent = new Intent(this, PerfilUsuario.class);
+            startActivity(adivinaIntent);
+
+            return true;
         }else{
             return super.onOptionsItemSelected(item);
         }
+
     }
 
 }

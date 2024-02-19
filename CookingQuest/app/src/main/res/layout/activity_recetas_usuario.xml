@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".usuario.Puntuacion_GlobalActivity">
+    tools:context=".RecetasPaisActivity"
+    style="@style/TextViewStyle"
+    >
 
     <TextView
-        android:id="@+id/tvTituloMisrecetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Mis Recetas"
-        android:textSize="24sp" />
+        android:id="@+id/RP_PAIS"
+        android:layout_width="317dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
 
+        android:gravity="center"
+        android:text="Mis Recetas"
+        style="@style/TextViewStyle"
+        android:textSize="28sp"
+        />
     <ScrollView
         android:id="@+id/ScrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:layout_below="@id/tvTituloMisrecetas">
+        android:layout_below="@id/RP_PAIS">
         <LinearLayout
-            android:id="@+id/linearLayoutRecetas"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -31,5 +37,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>

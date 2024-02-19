@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="hueso">#FAF0DB</color>
     <color name="azul">#42BFB4</color>
     <color name="morado">#724D7A</color>
     <color name="rojo">#EEEC002A</color>
@@ -19,12 +20,5 @@
     <color name="colorAccent">#FFB000</color>
     <color name="colorPrimary">#42BFB4</color>
     <color name="colorPrimaryDark">#004225</color>
-
-    <!--
-        <color name="Principal_color">#FCF5ED</color>
-        <color name="Secundario_color">#F4BF96</color>
-        <color name="Tercer_color">#CE5A67</color>
-        <color name="Cuarto_color">#1F1717</color>
-     -->
 
 </resources>

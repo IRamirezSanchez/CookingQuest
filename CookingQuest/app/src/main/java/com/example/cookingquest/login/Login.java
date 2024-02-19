@@ -2,13 +2,18 @@ package com.example.cookingquest.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +35,8 @@ public class Login extends AppCompatActivity {
     private ProgressBar barraProgreso;
     private FirebaseAuth myAuth;
     private FirebaseUser usuario;
+    private Animation mBtnAnim;
+    private TextView mensajeErrorC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +44,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         myAuth = FirebaseAuth.getInstance();
         usuario= myAuth.getCurrentUser();
+
         if(usuario!=null){
-            Toast.makeText(Login.this, "Hay un usuario logueado", Toast.LENGTH_SHORT).show();
             Intent intentRegistro = new Intent(this, InicioActivity.class);
             startActivity(intentRegistro);
             finish();
@@ -46,12 +53,14 @@ public class Login extends AppCompatActivity {
         entradaCorreoAux = findViewById(R.id.entrada_correo);
         entradaPasswdAux = findViewById(R.id.entrada_passwd);
         barraProgreso = findViewById(R.id.progressBar);
+        mensajeErrorC = findViewById(R.id.mensajeError);
 
         barraProgreso.setVisibility(View.INVISIBLE);
+        mBtnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.boton_anim);
 
 
         //ASI ENTRO AUTOMATICAMENTE SIN ESCRIBIR MI EMAIL Y PASSWD
-        entradaCorreoAux.setText("12@12.com");
+        entradaCorreoAux.setText("prueba@prueba.com");
         entradaPasswdAux.setText("123456A_?");
     }
 
@@ -74,37 +83,30 @@ public class Login extends AppCompatActivity {
 
     //Boton ONCLICK XML
     public void accederLogin(View view) {
+        view.startAnimation(mBtnAnim);
         String email = entradaCorreoAux.getText().toString();
         String password = entradaPasswdAux.getText().toString();
 
         //Controlar los errores de email y contraseña con FIrebasey datos del cusuario! Datos introducidos erroneos.
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(Login.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
+        if (!controlEntrada(email,password)) {
+           return;
         }
 
 
         //Login de firebaseAuth sign in !!
-
+        barraProgreso.setVisibility(View.VISIBLE);
         myAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            barraProgreso.setVisibility(View.VISIBLE);
-                            Log.d("Login", "Successfull");
-                            Toast.makeText(Login.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
 
-                            //Intent intentAcceso = new Intent(Login.this, PerfilUsuario.class);
                             Intent intentAcceso = new Intent(Login.this, InicioActivity.class);
-                            //intentAcceso.putExtra("correo",email);
                             startActivity(intentAcceso);
-
+                            barraProgreso.setVisibility(View.INVISIBLE);
                             finish();
                         } else {
-                            Log.w("Login", "Failure", task.getException());
-                            Toast.makeText(Login.this, "Error al iniciar sesión. " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                            mensajeErrorC.setText("Login Incorrecto, Intentalo de nuevo");
                             barraProgreso.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -112,45 +114,35 @@ public class Login extends AppCompatActivity {
 
     }
 
+    ///////////////////////////////////////////////CONTROL ENTRADA///////////////////////////////////////////////////////
+    private boolean controlEntrada(String email, String password){
+        mensajeErrorC.setText("");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.P_Boton_IMG_SALIR) {
-            finishAffinity();
-            //finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-
-    /**
-     * Metodo para controlar que el item INICIO no aparezca e inflar el ActionBar.
-     * Condicion que la activity que estes, sea el mainActivity.
-     * Controlar que el item NO sea nulo.
-     * @param menu The options menu in which you place your items.
-     *
-     * @return true, de que sea ha controlado que no muestre ese item.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cooquing_quest_menu, menu);
-
-        // Verifica la clase de la actividad y oculta la opción de menú según sea necesario
-        if (getClass() == Login.class) {
-            MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_INICIO);
-            MenuItem itemToRemove1 = menu.findItem(R.id.menu_juegos);
-
-            if (itemToRemove != null || itemToRemove1 != null) {
-                menu.removeItem(itemToRemove.getItemId());
-                menu.removeItem(itemToRemove1.getItemId());
-            }
+        if (email.isEmpty() || password.isEmpty()) {
+            // Toast.makeText(Nuevo_Registro.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+            mensajeErrorC.setText("Por favor, completa todos los campos");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorC.setText("");
+                }
+            }, 3000);
+            return false;
         }
 
+        if(!password.matches("^.{6,}$")){
+            entradaPasswdAux.setError("Minimo 6 caracteres");
+            return false;
+        }else if(!password.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{6,}$")){
+            entradaPasswdAux.setError("Introduce una Mayuscula, un caracter especial y un numero");
+            return false;
+        }
+
+        if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+            entradaCorreoAux.setError("Introduce un Correo Válido");
+            return false;
+        }
         return true;
     }
+
 }

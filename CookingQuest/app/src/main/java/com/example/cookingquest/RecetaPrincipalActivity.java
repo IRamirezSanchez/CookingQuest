@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.example.cookingquest.login.PerfilUsuario;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
@@ -145,17 +146,17 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     // Acceder a los datos de cada documento de receta
                                     if (document.getString("nombre").equalsIgnoreCase(nombreRecetaIntent)) {
-                                         recetaId = document.getId();
-                                         nombreReceta = document.getString("nombre");
-                                         categoriaReceta = document.getString("categoria");
-                                         racionesReceta = document.getString("raciones");
-                                         tiempoReceta = document.getString("tiempo");
-                                         String ingredientesReceta = document.getString("ingredientes");
-                                         linkReceta = document.getString("link");
-                                         String preparacion_1Receta = document.getString("preparacion_1");
-                                         String preparacion_2Receta = document.getString("preparacion_2");
-                                         String preparacion_3Receta = document.getString("preparacion_3");
-                                         String preparacion_4Receta = document.getString("preparacion_4");
+                                        recetaId = document.getId();
+                                        nombreReceta = document.getString("nombre");
+                                        categoriaReceta = document.getString("categoria");
+                                        racionesReceta = document.getString("raciones");
+                                        tiempoReceta = document.getString("tiempo");
+                                        String ingredientesReceta = document.getString("ingredientes");
+                                        linkReceta = document.getString("link");
+                                        String preparacion_1Receta = document.getString("preparacion_1");
+                                        String preparacion_2Receta = document.getString("preparacion_2");
+                                        String preparacion_3Receta = document.getString("preparacion_3");
+                                        String preparacion_4Receta = document.getString("preparacion_4");
 
                                         //Verificar si es favorito
                                         verificarSiEsFavorito(recetaId, nombrePaisIntent);
@@ -314,7 +315,7 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
                 List<Map<String, Object>> favoritos = (List<Map<String, Object>>) documentSnapshot.get("recetasFavoritas");
                 if (favoritos != null) {
                     for (Map<String, Object> favorito : favoritos) {
-                        if (recetaId.equals(favorito.get("recetaId")) && pais.equals(favorito.get("pais"))) {
+                        if (recetaId.equals(favorito.get("recetaId")) && pais.toLowerCase().equals(favorito.get("pais"))) {
                             estrellaOFF.setVisibility(View.INVISIBLE);
                             estrellaON.setVisibility(View.VISIBLE);
                             return;
@@ -638,7 +639,7 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.P_Boton_IMG_EMPAREJA) {
-            Intent emparejaIntent = new Intent(this, GameActivityAdivina.class);
+            Intent emparejaIntent = new Intent(this, GameActivityCookingFast.class);
             startActivity(emparejaIntent);
             finish();
             return true;
@@ -653,7 +654,7 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
 
             return true;
         } else if (id == R.id.P_Boton_Perfil_Usuario) {
-            Intent adivinaIntent = new Intent(this, InicioActivity.class);
+            Intent adivinaIntent = new Intent(this, PerfilUsuario.class);
             startActivity(adivinaIntent);
 
             return true;
