@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Creamos el desvanecimineto cambiando el alpha que es el cierre de la app-->
-    <!-- la duracion del xml equivalentes tiene que tener la misma duracion , sino se haria la duracion que tenga mas baja.-->
-    <alpha
-        android:fromAlpha="0.0"
-        android:toAlpha="1.0"
-        android:duration="300" />
-</set>

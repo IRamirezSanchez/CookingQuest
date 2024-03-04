@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InicioActivity"
+    >
+
+    <TextView
+        android:id="@+id/P_TextRecetas"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/recetas"
+        android:textSize="32sp"
+        style="@style/TextViewStyle"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/P_TextJuegos"
+        android:layout_width="350dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/cocina_y_juega"
+        android:textSize="32sp"
+        style="@style/TextViewStyle"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/P_BotonIMG_ALE" />
+
+    <ImageButton
+        android:id="@+id/P_Boton_IMG_EMPAREJA"
+        android:layout_width="130dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/juegosredondeados"
+        android:onClick="P_linkEmparejalos"
+        android:scaleType="center"
+        android:src="@drawable/empareja_juego"
+        app:layout_constraintEnd_toStartOf="@+id/P_Boton_IMG_ADIVINA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/P_TextJuegos" />
+
+    <ImageButton
+        android:id="@+id/P_Boton_IMG_ADIVINA"
+        android:layout_width="135dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/juegosredondeados"
+        android:onClick="P_linkAdivina"
+        android:scaleType="center"
+        android:src="@drawable/que_plato_es_juego"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/P_Boton_IMG_EMPAREJA"
+        app:layout_constraintTop_toBottomOf="@+id/P_TextJuegos" />
+
+
+    <TextView
+        android:id="@+id/P_Text_EMPAREJALOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:text="COOKING FAST"
+        android:textSize="16sp"
+        style="@style/TextViewStyle"
+        app:layout_constraintEnd_toStartOf="@+id/P_Text_ADIVINA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/P_Boton_IMG_EMPAREJA" />
+
+    <TextView
+        android:id="@+id/P_Text_ADIVINA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:text="@string/adivina"
+        android:textSize="16sp"
+        style="@style/TextViewStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/P_Text_EMPAREJALOS"
+        app:layout_constraintTop_toBottomOf="@+id/P_Boton_IMG_ADIVINA" />
+
+    <ImageButton
+        android:id="@+id/P_BotonIMG_FRA"
+        android:layout_width="88dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/francia_bandera_3d"
+        android:onClick="P_linkFrancia"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/P_BotonIMG_ESP"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/P_TextRecetas" />
+
+    <ImageButton
+        android:id="@+id/P_BotonIMG_ESP"
+        android:layout_width="88dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/spain_bandera_3d"
+        android:onClick="P_linkSpain"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/P_BotonIMG_FRA"
+        app:layout_constraintTop_toBottomOf="@+id/P_TextRecetas" />
+
+    <ImageButton
+        android:id="@+id/P_BotonIMG_ALE"
+        android:layout_width="88dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/alemania_bandera_3d"
+        android:onClick="P_linkAlemania"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/P_BotonIMG_ING"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/P_BotonIMG_FRA" />
+
+    <ImageButton
+        android:id="@+id/P_BotonIMG_ING"
+        android:layout_width="88dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inglaterra_bandera_3d"
+        android:onClick="P_linkInglaterra"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/P_BotonIMG_ALE"
+        app:layout_constraintTop_toBottomOf="@+id/P_BotonIMG_ESP" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="300" />
+</set>
+
+<!-- Utilizamos la etiqueta <alpha> para definir una animación de transparencia (alfa).
+android:fromAlpha , 1.0 para representar que el valor inicial de alfa (completamente visible).
+android:toAlpha , 0.0 para representar que el valor final de alfa (completamente transparente).
+android:duration se establece en 1000 para especificar la duración de la animación en milisegundos (en este caso, 1 segundo).
+-->

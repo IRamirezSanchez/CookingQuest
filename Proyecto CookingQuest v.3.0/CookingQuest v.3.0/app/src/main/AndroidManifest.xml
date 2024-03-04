@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/cq_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/cq_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/Base.Theme.CookingQuest"
+        tools:targetApi="31">
+        <activity
+            android:name=".InstruccionesCookingFast"
+            android:exported="false"
+            android:parentActivityName=".InicioActivity"/>
+        <activity
+            android:name=".GameActivityCookingFast"
+            android:exported="false"
+            android:parentActivityName=".InstruccionesCookingFast" />
+        <activity
+            android:name=".usuario.Recetas_UsuarioActivity"
+            android:exported="false"
+            android:parentActivityName=".login.PerfilUsuario" />
+        <activity
+            android:name=".usuario.Puntuacion_GlobalActivity"
+            android:exported="false"
+            android:parentActivityName=".login.PerfilUsuario" /> <!-- Herencia entre clases definir quien es su padre con parentActivityName -->
+        <activity
+            android:name=".login.Login"
+            android:exported="false"
+            android:theme="@style/AppTheme.Splash" />
+        <activity
+            android:name=".login.Nuevo_Registro"
+            android:exported="false"
+            android:parentActivityName=".login.Login"
+            android:theme="@style/AppTheme.Splash" />
+        <activity
+            android:name=".login.PerfilUsuario"
+            android:exported="false"
+            android:parentActivityName=".InicioActivity" />
+        <activity
+            android:name=".GameActivityAdivina"
+            android:exported="false"
+            android:parentActivityName=".InicioActivity" />
+        <activity
+            android:name=".RecetaPrincipalActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RecetasPaisActivity"
+            android:exported="false"
+            android:parentActivityName=".InicioActivity" />
+        <activity
+            android:name=".InicioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

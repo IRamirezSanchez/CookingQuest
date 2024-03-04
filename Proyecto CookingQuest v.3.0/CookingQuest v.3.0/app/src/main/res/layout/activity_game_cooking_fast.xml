@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivityCookingFast">
+
+    <ImageView
+        android:id="@+id/fondoImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cocinaa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:scaleType="centerCrop"
+        android:text="COOKING FAST"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fondoImageView" />
+
+
+    <ImageView
+        android:id="@+id/hornilla_img"
+        android:layout_width="wrap_content"
+        android:layout_height="101dp"
+        android:layout_marginBottom="56dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/hornillaapagada"
+        app:layout_constraintBottom_toTopOf="@+id/reiniciar_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/sarten_img"
+        android:layout_width="wrap_content"
+        android:layout_height="98dp"
+        android:layout_marginBottom="-55dp"
+        android:src="@drawable/sarten"
+        app:layout_constraintBottom_toTopOf="@+id/hornilla_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/food_img"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:layout_marginBottom="-125dp"
+        app:layout_constraintBottom_toTopOf="@+id/sarten_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/filete_btn"
+        android:layout_width="115dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="68dp"
+        android:background="@android:color/transparent"
+        android:onClick="cambiar_img_fil"
+        android:src="@drawable/filete_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageButton
+        android:id="@+id/san_btn"
+        android:layout_width="115dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:onClick="cambiar_img_san"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sandwich_crudo_as"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filete_btn" />
+
+    <ImageButton
+        android:id="@+id/patatas_btn"
+        android:layout_width="115dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:onClick="cambiar_img_san"
+        android:scaleType="centerCrop"
+        android:src="@drawable/patatas_crudas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/san_btn" />
+
+    <Button
+        android:id="@+id/reiniciar_btn"
+        style="@style/ButtonViewStyleCookingFast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="28dp"
+        android:onClick="reiniciarbtn"
+        android:padding="10dp"
+        android:text="Reiniciar"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/iniciar_btn"
+        style="@style/ButtonViewStyleCookingFast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:onClick="iniciarJuego"
+        android:padding="10dp"
+        android:text="Comenzar"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reiniciar_btn"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hornilla_img"
+        app:layout_constraintVertical_bias="0.682" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
