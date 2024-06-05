@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.cookingquest.R;
 import com.example.cookingquest.SplashScreenActivity;
@@ -32,7 +33,7 @@ public class Nuevo_Registro extends AppCompatActivity {
 
     private EditText entrada_emailC, entrada_contraseñaC, confirmar_contraseñaC, entrada_nombreC, entrada_telefonoC;
     private Long puntosC;
-    private TextView  mensajeErrorC;
+    private TextView  mensajeErrorC, mensajeErrorContra;
     private FirebaseAuth myAuth;
     private FirebaseFirestore myFireStore;
     private Animation mBtnAnim;
@@ -54,6 +55,7 @@ public class Nuevo_Registro extends AppCompatActivity {
         confirmar_contraseñaC = findViewById(R.id.confirmarContraseña);
         puntosC= 0L;
         mensajeErrorC = findViewById(R.id.mensajeError);
+        mensajeErrorContra= findViewById(R.id.mensajeErrorContrasenia);
         mBtnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.boton_anim);
 
         Button buttonRegistrar = findViewById(R.id.registrar);
@@ -153,27 +155,50 @@ public class Nuevo_Registro extends AppCompatActivity {
             return false;
         }
 
+        if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+            entrada_emailC.setError("Introduce un Correo Válido");
+            return false;
+        }
+
         if (!telefono.matches("^[0-9]{9}$")){
             entrada_telefonoC.setError("Introduce 9 digitos");
             return false;
         }
         if(!password.equals(passwordConfirmar)){
-            confirmar_contraseñaC.setError("No coinciden las contraseñas");
+            mensajeErrorContra.setTextColor(ContextCompat.getColor(this, R.color.red));
+            mensajeErrorContra.setText("Las contraseñas no coinciden");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorContra.setText("");
+                }
+            }, 4000);
             return false;
         }
 
         if(!password.matches("^.{6,}$")){
-            entrada_contraseñaC.setError("Minimo 6 caracteres");
+            mensajeErrorContra.setTextColor(ContextCompat.getColor(this, R.color.red));
+            mensajeErrorContra.setText("Minimo 6 caracteres");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorContra.setText("");
+                }
+            }, 4000);
             return false;
         }else if(!password.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{6,}$")){
-            entrada_contraseñaC.setError("Introduce una Mayuscula, un caracter especial y un numero");
+            mensajeErrorContra.setTextColor(ContextCompat.getColor(this, R.color.red));
+            mensajeErrorContra.setText("Introduce una Mayuscula, un caracter especial y un numero");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorContra.setText("");
+                }
+            }, 4000);
             return false;
         }
 
-        if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
-            entrada_emailC.setError("Introduce un Correo Válido");
-            return false;
-        }
+
         return true;
     }
 

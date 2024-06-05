@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,11 +12,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
 import com.example.cookingquest.login.Login;
 import com.example.cookingquest.login.PerfilUsuario;
 import com.example.cookingquest.model.Pais;
+import com.example.cookingquest.usuario.MenuTarget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class InicioActivity extends AppCompatActivity {
     private Animation mBtnAnim;
     private FirebaseUser user;
     private FirebaseAuth myAuth;
+    private StorageReference myStorage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,9 @@ public class InicioActivity extends AppCompatActivity {
         ImageButton botonEmparejalos = findViewById(R.id.P_Boton_IMG_EMPAREJA);
         ImageButton botonAdivina = findViewById(R.id.P_Boton_IMG_ADIVINA);
         mBtnAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.boton_anim);
+
+        myStorage = FirebaseStorage.getInstance().getReference();
+
 
         //se utiliza para transmitir datos entre las actividades en función de los botones que se han hecho clic.
         View.OnClickListener paisBotonClickListener = new View.OnClickListener() {
@@ -134,7 +143,27 @@ public class InicioActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cooquing_quest_menu, menu);
+        StorageReference referenciaFichero = myStorage.child("usuarios/" + user.getUid() + "/imagen_perfil.jpg");
+        MenuItem itemPerfilUsuario = menu.findItem(R.id.P_Boton_Perfil_Usuario);
+        final MenuTarget menuTarget = new MenuTarget(itemPerfilUsuario);
+        if (referenciaFichero != null) {
+            try {
+                referenciaFichero.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(this)
+                            .load(uri)
+                            .placeholder(R.drawable.icon_perfil_usuario) // Icono predeterminado mientras se carga la imagen
+                            .circleCrop() // recortar la imagen en forma circular
+                            .into(menuTarget);
 
+                }).addOnFailureListener(exception -> {
+                    // Si ocurre un error, carga la imagen predeterminada desde el recurso drawable
+                    Glide.with(this).load(R.drawable.icon_perfil_usuario).into(menuTarget);
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         // Verifica la clase de la actividad y oculta la opción de menú según sea necesario
         if (getClass() == InicioActivity.class) {
             MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_INICIO);

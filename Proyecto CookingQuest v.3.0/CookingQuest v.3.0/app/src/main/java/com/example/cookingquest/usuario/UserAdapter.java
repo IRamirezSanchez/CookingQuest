@@ -65,9 +65,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         Usuario currentUsuario = usuarios.get(position);
         int posicion = position + 1;
-        holder.posicion.setText(String.valueOf(posicion));
         holder.userName.setText(currentUsuario.getNombre());
         holder.userScore.setText(String.valueOf(currentUsuario.getPuntos()));
+        // Verificar si es uno de los tres primeros elementos
+        if (position == 0) {
+            holder.posicion.setCompoundDrawablesWithIntrinsicBounds(R.drawable.oro, 0, 0, 0);
+            holder.posicion.setText("");
+        } else if (position == 1) {
+            holder.posicion.setCompoundDrawablesWithIntrinsicBounds(R.drawable.plata, 0, 0, 0);
+            holder.posicion.setText("");
+        } else if (position == 2) {
+            holder.posicion.setCompoundDrawablesWithIntrinsicBounds(R.drawable.bronce, 0, 0, 0);
+            holder.posicion.setText("");
+        } else {
+            // Si no es uno de los tres primeros elementos, eliminar cualquier icono
+            holder.posicion.setText(String.valueOf(posicion));
+            holder.posicion.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
     }
 
     /**

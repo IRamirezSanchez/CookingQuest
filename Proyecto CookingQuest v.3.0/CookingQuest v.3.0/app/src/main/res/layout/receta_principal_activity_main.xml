@@ -160,7 +160,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ingredientes"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    />
 
                 <Button
                     android:id="@+id/playPauseButton1"
@@ -171,6 +172,7 @@
                     android:background="@android:color/transparent"
                     android:drawableStart="@drawable/icons_audio"
                     android:onClick="onClickPlayPause" />
+
 
 
             </LinearLayout>
@@ -188,7 +190,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="@string/rs_contenido_ingredientes"
-                android:textSize="@dimen/text_size2" />
+                android:textSize="@dimen/text_size2"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -209,7 +212,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/preparacion_1_parte"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:gravity="center_horizontal"/>
 
                 <Button
                     android:id="@+id/playPauseButton2"
@@ -219,6 +223,7 @@
                     android:background="@android:color/transparent"
                     android:drawableStart="@drawable/icons_audio"
                     android:onClick="onClickPlayPause" />
+
 
             </LinearLayout>
 
@@ -235,7 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="@string/rs_contenido_ingredientes"
-                android:textSize="@dimen/text_size2" />
+                android:textSize="@dimen/text_size2"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -376,14 +382,28 @@
                 android:layout_margin="15dp"
                 android:text="@string/rs_contenido_ingredientes"
                 android:textSize="@dimen/text_size2" />
+            <!--
+                        <LinearLayout
+                            android:id="@+id/commentsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
 
 
+
+                <Button
+                    android:id="@+id/addCommentButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Añadir comentario"/>
+            </LinearLayout>
+-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="30dp"
-
                 android:background="@drawable/bottonsheet_background"
                 android:gravity="center_horizontal">
 
@@ -411,6 +431,8 @@
 
                 android:layout_marginBottom="10dp"
                 android:background="@color/black" />
+
+           
 
         </LinearLayout>
 

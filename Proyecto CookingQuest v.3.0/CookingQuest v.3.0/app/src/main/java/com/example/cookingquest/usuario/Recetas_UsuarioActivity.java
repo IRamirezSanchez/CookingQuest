@@ -201,8 +201,10 @@ public class Recetas_UsuarioActivity extends AppCompatActivity {
         //Control de botones a mostrar en cada actividad
         if (getClass() == Recetas_UsuarioActivity.class) {
             MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);
-            if (itemToRemove != null) {
+            MenuItem itemToRemove2 = menu.findItem(R.id.P_Boton_Perfil_Usuario);
+            if (itemToRemove != null || itemToRemove2 != null) {
                 menu.removeItem(itemToRemove.getItemId());
+                menu.removeItem(itemToRemove2.getItemId());
             }
         }
         return true;

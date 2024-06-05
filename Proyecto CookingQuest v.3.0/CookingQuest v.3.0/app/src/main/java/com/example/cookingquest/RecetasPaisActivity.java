@@ -20,10 +20,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.cookingquest.login.PerfilUsuario;
 import com.example.cookingquest.model.Pais;
+import com.example.cookingquest.usuario.MenuTarget;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,6 +42,8 @@ public class RecetasPaisActivity extends AppCompatActivity {
     private FirebaseFirestore myFireStore;
     private StorageReference myStorage;
     private FirebaseStorage storage;
+    private FirebaseUser user;
+    private FirebaseAuth myAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,8 @@ public class RecetasPaisActivity extends AppCompatActivity {
         // =========================FIRESTORE ============================
         storage = FirebaseStorage.getInstance();
         myStorage = storage.getReference();
+        myAuth =  FirebaseAuth.getInstance();
+        user= myAuth.getCurrentUser();
 
         myFireStore = FirebaseFirestore.getInstance();
         DocumentReference docRef = myFireStore.collection("recetario").document(nombrePais.toString().toLowerCase());
@@ -146,6 +153,7 @@ public class RecetasPaisActivity extends AppCompatActivity {
                                 linearLayout.addView(espaciosView);
 
                             }
+
                         } else {
                             Log.e(TAG, "Error al obtener documentos de recetas:", task.getException());
                         }
@@ -166,6 +174,27 @@ public class RecetasPaisActivity extends AppCompatActivity {
        //Inflar menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.cooquing_quest_menu, menu);
+        StorageReference referenciaFichero = myStorage.child("usuarios/" + user.getUid() + "/imagen_perfil.jpg");
+        MenuItem itemPerfilUsuario = menu.findItem(R.id.P_Boton_Perfil_Usuario);
+        final MenuTarget menuTarget = new MenuTarget(itemPerfilUsuario);
+        if (referenciaFichero != null) {
+            try {
+                referenciaFichero.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(this)
+                            .load(uri)
+                            .placeholder(R.drawable.icon_perfil_usuario) // Icono predeterminado mientras se carga la imagen
+                            .circleCrop() // recortar la imagen en forma circular
+                            .into(menuTarget);
+
+                }).addOnFailureListener(exception -> {
+                    // Si ocurre un error, carga la imagen predeterminada desde el recurso drawable
+                    Glide.with(this).load(R.drawable.icon_perfil_usuario).into(menuTarget);
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         //Control de botones a mostrar en cada actividad
         if (getClass() == RecetasPaisActivity.class) {
             MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);

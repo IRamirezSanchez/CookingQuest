@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,7 +26,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.cookingquest.login.PerfilUsuario;
+import com.example.cookingquest.usuario.MenuTarget;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +38,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.sql.SQLOutput;
 
@@ -57,6 +62,8 @@ public class GameActivityCookingFast extends AppCompatActivity implements Sensor
     private FirebaseAuth myAuth;
     private FirebaseUser user;
     private FirebaseFirestore myFireStore;
+    private StorageReference myStorage;
+    private FirebaseStorage storage;
     private Long puntos;
     private Long puntosTotales;
     private boolean movimientoDetectado;
@@ -75,6 +82,8 @@ public class GameActivityCookingFast extends AppCompatActivity implements Sensor
         user = myAuth.getCurrentUser();
         puntos=0L;
         myFireStore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        myStorage = storage.getReference();
         movimientoDetectado=false;
         cargarPuntos();
         // Establecer un onClickListener para el botón de reinicio
@@ -527,13 +536,43 @@ public class GameActivityCookingFast extends AppCompatActivity implements Sensor
         } else {
             getSupportActionBar().hide();
         }
+        //Carga de imagen perfil TOOLBAR
+        StorageReference referenciaFichero = myStorage.child("usuarios/" + user.getUid() + "/imagen_perfil.jpg");
+        MenuItem itemPerfilUsuario = menu.findItem(R.id.P_Boton_Perfil_Usuario);
+        final MenuTarget menuTarget = new MenuTarget(itemPerfilUsuario);
+        if (referenciaFichero != null) {
+            try {
+                referenciaFichero.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(this)
+                            .load(uri)
+                            .placeholder(R.drawable.icon_perfil_usuario) // Icono predeterminado mientras se carga la imagen
+                            .circleCrop() // recortar la imagen en forma circular
+                            .into(menuTarget);
+
+                }).addOnFailureListener(exception -> {
+                    // Si ocurre un error, carga la imagen predeterminada desde el recurso drawable
+                    Glide.with(this).load(R.drawable.icon_perfil_usuario).into(menuTarget);
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         // Verifica la clase de la actividad y oculta la opción de menú según sea necesario
         if (getClass() == GameActivityCookingFast.class) {
-            MenuItem itemToRemove1 = menu.findItem(R.id.P_Boton_IMG_EMPAREJA);
-            MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);
-            if (itemToRemove1 != null || itemToRemove != null) {
-                menu.removeItem(itemToRemove1.getItemId());
-                menu.removeItem(itemToRemove.getItemId());
+            MenuItem itemRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);
+            MenuItem itemJuegos = menu.findItem(R.id.menu_juegos);
+            if (itemRemove != null) {
+                menu.removeItem(itemRemove.getItemId());
+            }
+            if (itemJuegos != null) {
+                SubMenu subMenu = itemJuegos.getSubMenu(); // Obtenemos el submenú
+                if (subMenu != null) {
+                    MenuItem itemToRemove = subMenu.findItem(R.id.P_Boton_IMG_EMPAREJA); // Buscamos el botón "Adivina" dentro del submenú
+                    if (itemToRemove != null) {
+                        subMenu.removeItem(itemToRemove.getItemId()); // Removemos el botón del submenú
+                    }
+                }
             }
         }
         return true;

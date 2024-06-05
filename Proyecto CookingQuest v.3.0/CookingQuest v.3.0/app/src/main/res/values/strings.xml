@@ -45,7 +45,7 @@
     <string name="volver">VOLVER</string>
 
 
-    <string name="CATEGORIA">Categoria:</string>
+    <string name="CATEGORIA">Categoria</string>
     <string name="rs_categoria_sp1">Postres</string>
     <string name="rs_categoria_sp2">Guisos</string>
     <string name="rs_categoria_sp3">Postres</string>
@@ -943,7 +943,7 @@
     <string name="correo">Correo</string>
     <string name="contrase_a">Contraseña</string>
     <string name="nombre">Nombre</string>
-    <string name="formulario_de_registro">Formulario de Registro</string>
+    <string name="formulario_de_registro">Registro de Usuario</string>
     <string name="introduce_un_nombre">Introduce un Nombre</string>
     <string name="correo_electronico">Correo Electronico</string>
     <string name="introduce_un_correo">Introduce un Correo</string>
@@ -975,5 +975,6 @@
         4. Para detener la cocción y ganar puntos, agita tu dispositivo hacia abajo cuando el alimento alcance el nivel de cocción deseado.\n\n
         ¡Cuantos más alimentos cocines a la perfección, más puntos acumularás!
         ¡Diviértete y demuestra tus habilidades culinarias en Cooking Fast!</string>
+    <string name="confirmar_contrase_a">Confirmar Contraseña</string>
 
 </resources>

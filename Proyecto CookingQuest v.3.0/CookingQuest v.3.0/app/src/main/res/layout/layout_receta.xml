@@ -9,12 +9,10 @@
     android:padding="2dp">
 
     <!--android:background="@drawable/rounded_background"-->
-    <!--
-    android:background="@color/Secundario_color"-->
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/Secundario_color" />
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,112 +22,145 @@
 
         <!--android:background="@color/Primario_oscuro"-->
 
-        <ImageButton
-            android:id="@+id/RP_BOTON_1"
-            android:layout_width="150dp"
-            android:layout_height="110dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded2"
-            android:scaleType="centerCrop"
-            android:src="@drawable/comida_alemania_r1" />
         <!-- estaba como Centerinside y el rounded2 no se utiliza esta detras-->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/Secundario_claro"
             >
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
             <TextView
                 android:id="@+id/RP_TEXT_1"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="8dp"
+                android:layout_margin="6dp"
                 android:gravity="center"
                 android:text="@string/nombreRecetaAlemania3"
                 android:textSize="18sp"
                 style="@style/TextViewStyle"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMinTextSize="12sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
             <!-- Esta línea activa el tamaño de texto automático y Tamaño mínimo del texto -->
             <!--android:background="@color/Primario_oscuro"-->
+            <ImageButton
+                android:id="@+id/RP_BOTON_1"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded2"
+                android:scaleType="centerCrop"
+                android:src="@drawable/comida_alemania_r1" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
 
-                <TextView
-                    android:id="@+id/categoria1"
-                    android:layout_width="70dp"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/CATEGORIA"
-                    style="@style/TextViewStyle" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp"
+                >
 
                 <TextView
                     android:id="@+id/categoria_desa1"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/rs_categoria_al1"
                     style="@style/TextViewStyle"/>
 
             </LinearLayout>
-
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp">
 
                  <TextView
                     android:id="@+id/tiempoPrepa1"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginTop="2dp"
                     android:text="@string/TIEMPO"
                     style="@style/TextViewStyle" />
 
                 <TextView
                     android:id="@+id/tiempo_desa1"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="5dp"
                     style="@style/TextViewStyle"
                     android:text="@string/rs_tiempo_al1" />
 
             </LinearLayout>
-
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp">
 
                 <TextView
                     android:id="@+id/raciones1"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginTop="2dp"
                     style="@style/TextViewStyle"
                     android:text="@string/RACIONES"
                     android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/raciones_desa1"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="5dp"
                     style="@style/TextViewStyle"
                     android:text="@string/rs_raciones_al1" />
 
             </LinearLayout>
-
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/Secundario_color" />
+        />
 
 </LinearLayout>

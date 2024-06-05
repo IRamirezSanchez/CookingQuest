@@ -75,7 +75,6 @@ public class Login extends AppCompatActivity {
         if(usuario==null) {
             Intent intentRegistro = new Intent(this, Nuevo_Registro.class);
             startActivity(intentRegistro);
-
         }else{
             //Realmente el usuario lo controlo  cuando entra en la app y  no cerro la sesion sesion antes,
             // le dirija a la Perfil de usuario (Principal). Por seguridad de Buggeo..etc lo dejo.
@@ -144,16 +143,24 @@ public class Login extends AppCompatActivity {
             return false;
         }
 
+
         if(!password.matches("^.{6,}$")){
-            entradaPasswdAux.setError("Minimo 6 caracteres");
+            mensajeErrorC.setText("Las credenciales no coinciden");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorC.setText("");
+                }
+            }, 3000);
             return false;
         }else if(!password.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$!%*?&_-])[A-Za-z\\d@$!%*?&_-]{6,}$")){
-            entradaPasswdAux.setError("Introduce una Mayuscula, un caracter especial y un numero");
-            return false;
-        }
-
-        if(!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
-            entradaCorreoAux.setError("Introduce un Correo Válido");
+            mensajeErrorC.setText("Las credenciales no coinciden");
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mensajeErrorC.setText("");
+                }
+            }, 3000);
             return false;
         }
         return true;

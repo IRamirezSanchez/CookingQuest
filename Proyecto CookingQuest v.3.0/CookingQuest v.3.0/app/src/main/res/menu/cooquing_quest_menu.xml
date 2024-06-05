@@ -6,7 +6,6 @@
         app:showAsAction="always"
         android:title="@string/inicio" />
     <item android:id="@+id/P_Boton_Perfil_Usuario"
-        android:icon="@drawable/icon_perfil_usuario"
         app:showAsAction="always"
         android:title="@string/mi_perfil" />
     <item

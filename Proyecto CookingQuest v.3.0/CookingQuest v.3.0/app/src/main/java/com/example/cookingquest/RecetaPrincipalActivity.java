@@ -5,23 +5,29 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.example.cookingquest.login.PerfilUsuario;
+import com.example.cookingquest.usuario.MenuTarget;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
@@ -76,6 +82,8 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
     DownloadConditions conditions;
     private ImageView imagenSplash;
     private ProgressBar progressBar;
+    private LinearLayout commentsLayout;
+    private Button addCommentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -764,6 +772,27 @@ public class RecetaPrincipalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.cooquing_quest_menu, menu);
+        StorageReference referenciaFichero = myStorage.child("usuarios/" + user.getUid() + "/imagen_perfil.jpg");
+        MenuItem itemPerfilUsuario = menu.findItem(R.id.P_Boton_Perfil_Usuario);
+        final MenuTarget menuTarget = new MenuTarget(itemPerfilUsuario);
+        if (referenciaFichero != null) {
+            try {
+                referenciaFichero.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Glide.with(this)
+                            .load(uri)
+                            .placeholder(R.drawable.icon_perfil_usuario) // Icono predeterminado mientras se carga la imagen
+                            .circleCrop() // recortar la imagen en forma circular
+                            .into(menuTarget);
+
+                }).addOnFailureListener(exception -> {
+                    // Si ocurre un error, carga la imagen predeterminada desde el recurso drawable
+                    Glide.with(this).load(R.drawable.icon_perfil_usuario).into(menuTarget);
+
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         if (getClass() == RecetaPrincipalActivity.class) {
             MenuItem itemToRemove = menu.findItem(R.id.P_Boton_IMG_SALIR);
             if (itemToRemove != null) {
